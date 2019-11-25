@@ -43,19 +43,17 @@ def change_position(movement, player, board):
 
 
 def main():
-
     player = create_player()
-    
 
     is_running = True
-    
     while is_running:
         key = key_pressed()
         if key == 'q':
             is_running = False
         if key == 'z':
             clear_screen()
-        else:           
+        else:
+            clear_screen()
             board = engine.create_board(BOARD_WIDTH, BOARD_HEIGHT)
             if key in 'wsad':
                 change_position(CONTROL_DICT[key], player, board)
