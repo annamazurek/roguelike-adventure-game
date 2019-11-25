@@ -25,6 +25,8 @@ def create_player():
     return player
 
 
+
+
 def main():
 
     player = create_player()
@@ -38,6 +40,16 @@ def main():
         if key == 'z':
             clear_screen()
         else:
+            if key == 'w':
+                engine.change_position(-1,0,player)
+            if key == 's':
+                engine.change_position(1,0,player)
+            if key == 'a':
+                engine.change_position(0,-1,player)
+            if key == 'd':
+                engine.change_position(0,1,player)
+            print(key)
+            clear_screen()
             board = engine.create_board(BOARD_WIDTH, BOARD_HEIGHT)
             board = engine.put_player_on_board(board, player)
             ui.display_board(board)
