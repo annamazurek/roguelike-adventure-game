@@ -9,7 +9,29 @@ def create_board(width, height):
     Returns:
     list: Game board  
     '''
-    pass
+
+    board = []
+    upper = ['#']*width
+
+    for row in range(height):
+        line = []
+        if row == 0 or row == height-1:
+            board.append(upper)
+        else:
+            for col in range(width):
+                if col == 0 or col == width-1:
+                    line.append('#')
+                else:
+                    if col == 5:
+                        line.append('#')
+                    else:    
+                        line.append('.')
+            board.append(line)
+
+    return board
+
+
+
     
 
 def put_player_on_board(board, player):
