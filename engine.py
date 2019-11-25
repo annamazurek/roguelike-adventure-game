@@ -12,7 +12,7 @@ def create_board(width, height):
 
     board = []
     upper = ['#']*width
-      
+
     for row in range(height):
         line = []
         if row == 0 or row == height-1:
@@ -22,16 +22,15 @@ def create_board(width, height):
                 if col == 0 or col == width-1:
                     line.append('#')
                 else:
-                    line.append('.')
+                    if col == 5:
+                        line.append('#')
+                    else:    
+                        line.append('.')
             board.append(line)
 
     return board
 
 
-def change_position(pos_y, pos_x, player):
-    player['y'] += pos_y
-    player['x'] += pos_x
-    return player
 
     
 def put_player_on_board(board, player):
