@@ -31,6 +31,7 @@ def create_player():
     return player
 
 
+
 def change_position(movement, player, board):
     new_y = player['y'] + movement[0]
     new_x = player['x'] + movement[1]
@@ -41,11 +42,11 @@ def change_position(movement, player, board):
         player['x'] += movement[1]
     return player
 
-
 def main():
     player = create_player()
 
     is_running = True
+
     while is_running:
         key = key_pressed()
         if key == 'q':
