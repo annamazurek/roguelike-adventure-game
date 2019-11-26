@@ -34,6 +34,7 @@ wizzard = """
                                                                    .||    /     Bb     '-. '-._ 
                                                                .--''       /      BBb       '-.  '-.
                                                               (_____________\____.dBBBb.________)____)
+
                                                                     
                                             
                                             
@@ -66,6 +67,8 @@ knight = """
                                                                 ||       |___/\___|`-.:.-`
                                                                 ||        \_ || _/    `
                                                                 ||        <_ >< _>
+                                                                ||        |  ||  |
+                                                                ||        |  ||  |
                                                                 ||        |  ||  |
                                                                 ||        |  ||  |
                                                                 ||       _\.:||:./_
@@ -103,16 +106,102 @@ rouge = """
                                                                           <___X___>
                                                                            \..|../
                                                                             \ | /
+                                                                            \ | /
+                                                                            \ | /
                                                                             /V|V\ 
                                                                            /  |  \ 
                                                                           '--' `--` 
                                             
 
 
-                """                           
+                """
+
+dwarf = """
+
+                                                        ██████╗ ██╗    ██╗ █████╗ ██████╗ ███████╗
+                                                        ██╔══██╗██║    ██║██╔══██╗██╔══██╗██╔════╝
+                                                        ██║  ██║██║ █╗ ██║███████║██████╔╝█████╗  
+                                                        ██║  ██║██║███╗██║██╔══██║██╔══██╗██╔══╝  
+                                                        ██████╔╝╚███╔███╔╝██║  ██║██║  ██║██║     
+                                                        ╚═════╝  ╚══╝╚══╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝     
+                                                                                                
+                                                                         _.-;-._
+                                                                        ;_.JL___; 
+                                                                        F"-/\_-7L
+                                                                        | a/ e | \ 
+                                                                       ,L,c;,.='/;,
+                                                                    _,-;;S:;:S;;:' '--._
+                                                                  ;. \;;s:::s;;: .'   /\ 
+                                                                 /  \  ;::::;;  /    /  \ 
+                                                                / ,  k ;S';;'S.'    j __,l
+                                                            ,---/| /  /S   /S '.   |'   ;
+                                                            ,Ljjj |/|.' s .' s   \  L    |
+                                                            LL,_ ]( \    /    '.  '.||   ;
+                                                         ||\ > /  ;-.'_.-.___\.-'(|=="(
+                                                          JJ," /   |_  [   ]     _]|   /
+                                                         LL\/   ,' '--'-'-----'  \  ( 
+                                                         ||     ;      |          |  >
+                                                         JJ     |      |\         |,/
+                                                          JJ    /_     ||       ;_|
+                                                           LL   L "==='|i======='_|
+                                                            ||    i----' '-------';
+                                                             JJ    ';-----.------,-'
+                                                             LL     L_.__J,'---;'
+                                                              ||      |   ,|    (
+                                                               JJ     .'=  (|  ,_|
+                                                                LL   /    .'L_    \ 
+                                                                ||   '---'    '.___>
+
+
+                """
+
+
+elf = """
+
+                                                                ███████╗██╗     ███████╗
+                                                                ██╔════╝██║     ██╔════╝
+                                                                █████╗  ██║     █████╗  
+                                                                ██╔══╝  ██║     ██╔══╝  
+                                                                ███████╗███████╗██║     
+                                                                ╚══════╝╚══════╝╚═╝     
+                                                                                    
+                                                                      .;;,.
+                                                                     ; '" ;\ \//
+                                                                    \|a (a|7 \//
+                                                                    j| ..  | ||/
+                                                                    //'.--.')\-,/
+                                                                .-||- '' ||/  `-.
+                                                                ;  | \ |/ |/ L.  ,|
+                                                                f\ |\| Y  || \ '._\ 
+                                                                j | \|     (| |   | |
+                                                                \(  '-.,-,    |   ; |
+                                                                |'-.'.L_rr>  f--f  |
+                                                    .-=,,______,--------- J-. ;  ;__ 
+                                                    ``"-,__     |  |      h  |  f    '--.__
+                                                            `--;;--,_       h  f-j   |   __;==-.
+                                                                / `-''-,,__J,'  \_..--:'-'     '
+                                                                | |    `' --L7//'-'`|
+                                                                | ,     ||  h    |  (
+                                                                | ;     | \ J    j   |
+                                                                | L__   | |  L_.'    |
+                                                                |   |'-.| L.'h  |  : |
+                                                                |;  \     |  J ; : : :|
+                                                                    : \     \  'L| : : |
+                                                                        \   \   |'L_j
+                                                                        _>  _|   |
+                                                                    <___/ /-  \ 
+                                                                            /    /
+                                                                            '---' 
+
+                """
+                                #
+
+characters_rase = ['Human', 'Elf', 'Dwarf']
+
+
 
 def start_menu_structure():
-    menu = [wizzard, knight, rouge]
+    menu = [wizzard, knight, rouge, dwarf, elf]
     # 88
     title =  """ 
 
@@ -173,15 +262,36 @@ def handle_menu_option(number_to_check):
 def move_forward(where):
     output = True
     if where == 0:
-        # go to GAME
-        print('GAME STARTS LOL PRESS ENTER')
+        helpers.clear_screen()
+        print(wizzard)
         input()
+        return wizzard
         pass
     elif where == 1:
-        print('GAME STARTS LOL PRESS ENTER')
+        helpers.clear_screen()
+        print(knight)
         input()
+        return knight
         pass
     elif where == 2:
+        helpers.clear_screen()
+        print(rouge)
+        input()
+        return rouge
+        pass
+    elif where == 3:
+        helpers.clear_screen()
+        print(dwarf)
+        input()
+        return dwarf
+        pass
+    elif where == 4:
+        helpers.clear_screen()
+        print(elf)
+        input()
+        return elf
+        pass
+    elif where == 9:
         # go to LEAVE
         output = False
     return output
