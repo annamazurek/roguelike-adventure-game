@@ -26,6 +26,7 @@ def print_menu(menu_structure, num_of_option):
     print('{0:<0}{2:^100}{1:>0}'.format('<-a','d->',menu_structure[MENU_COMPONENTS][num_of_option]))
     print()
     print('{:^106}'.format('press c to confirm'))
+    print(num_of_option)
 
 
 def start_menu_handler(key, option):
@@ -41,7 +42,7 @@ def start_menu_handler(key, option):
     num_of_option = handle_menu_option(option)
 
     if key == 'c':
-        pass
+        output = move_forward(option)
     return output, num_of_option
 
 
@@ -54,6 +55,21 @@ def handle_menu_option(number_to_check):
     return number_to_check
 
 
+def move_forward(where):
+    output = True
+    if where == 0:
+        # go to GAME
+        print('GAME STARTS LOL PRESS ENTER')
+        input()
+        pass
+    elif where == 1:
+        print('GAME STARTS LOL PRESS ENTER')
+        input()
+        pass
+    elif where == 2:
+        # go to LEAVE
+        output = False
+    return output
 
 
 def start_menu():
