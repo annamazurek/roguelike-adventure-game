@@ -40,6 +40,7 @@ elf = """
 
 def start_menu_structure():
     menu = [human, halfling, dwarf, elf]
+    instruction = "TO NAVIGATE USE 'A'- KEY TO MOVE LEFT OR 'D' KEY TO MOVE RIGHT"
     # 88
     title =  """ 
 
@@ -48,11 +49,9 @@ def start_menu_structure():
                         ██║     ███████║██║   ██║██║   ██║███████╗█████╗      ██║     ███████║███████║██████╔╝███████║██║        ██║   █████╗  ██████╔╝╚═╝
                         ██║     ██╔══██║██║   ██║██║   ██║╚════██║██╔══╝      ██║     ██╔══██║██╔══██║██╔══██╗██╔══██║██║        ██║   ██╔══╝  ██╔══██╗██╗
                         ╚██████╗██║  ██║╚██████╔╝╚██████╔╝███████║███████╗    ╚██████╗██║  ██║██║  ██║██║  ██║██║  ██║╚██████╗   ██║   ███████╗██║  ██║╚═╝
-                        ╚═════╝╚═╝  ╚═╝ ╚═════╝  ╚═════╝ ╚══════╝╚══════╝     ╚═════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝   ╚═╝   ╚══════╝╚═╝  ╚═╝    
-                        
-                                                        TO NAVIGATE USE 'A'- KEY TO MOVE LEFT OR 'D' KEY TO MOVE RIGHT                                                           """
+                        ╚═════╝╚═╝  ╚═╝ ╚═════╝  ╚═════╝ ╚══════╝╚══════╝     ╚═════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝   ╚═╝   ╚══════╝╚═╝  ╚═╝                          """
 
-    return [title, menu]
+    return [title, menu, instruction]
 
 
 # LATER TO UI
@@ -60,14 +59,15 @@ def print_menu(menu_structure, num_of_option):
     
     TITLE = 0
     MENU_COMPONENTS = 1
-    EXIT = 2
+    INSTRUCTION = 2
+    LENGHT_OF_LINE = len("                        ██╔════╝██║  ██║██╔═══██╗██╔═══██╗██╔════╝██╔════╝    ██╔════╝██║  ██║██╔══██╗██╔══██╗██╔══██╗██╔════╝╚══██╔══╝██╔════╝██╔══██╗██╗")
 
     print('{:^0}'.format(menu_structure[TITLE]))
     print()
-    print('{0:<0}{2:^100}{1:>0}'.format('<-a','d->',menu_structure[MENU_COMPONENTS][num_of_option]))
+    print('{:^100}'.format(menu_structure[MENU_COMPONENTS][num_of_option]))
     print()
+    print(f'{menu_structure[INSTRUCTION].center(LENGHT_OF_LINE)}')
     print('{:^106}'.format('Press "C" to confirm'))
-    print(num_of_option)
 
 
 def start_menu_handler(key, option):
