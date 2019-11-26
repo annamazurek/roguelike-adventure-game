@@ -2,6 +2,7 @@ from helpers import *
 import engine
 import ui
 import end_game
+import hero_info
 
 PLAYER_ICON = '@'
 PLAYER_START_X = 3
@@ -10,11 +11,12 @@ PLAYER_START_Y = 3
 BOARD_WIDTH = 80
 BOARD_HEIGHT = 30
 
-CONTROL_DICT={
+CONTROL_DICT = {
     'w':[-1,0],
     's':[1,0],
     'a':[0,-1],
-    'd':[0,1]}
+    'd':[0,1]
+}
 
 
 def create_player():
@@ -44,27 +46,27 @@ def change_position(movement, player, board):
 
 
 def main():
-
     player = create_player()
-    
 
     is_running = True
-    
     while is_running:
         key = key_pressed()
+        board = engine.create_board(BOARD_WIDTH, BOARD_HEIGHT)
+        player["actual_stats"] = hero_info.actual_stats
+        hero_statistics = player["actual_stats"]
+
         if key == 'q':
             is_running = False
-        if key == 'z':
-            clear_screen()
-        else:           
-            board = engine.create_board(BOARD_WIDTH, BOARD_HEIGHT)
-            if key in 'wsad':
-                change_position(CONTROL_DICT[key], player, board)
-            board = engine.put_player_on_board(board, player)
-            clear_screen()
-            ui.display_board(board)
+        elif key in 'wsad':
+            change_position(CONTROL_DICT[key], player, board)
+        board = engine.put_player_on_board(board, player)
 
-    end_game.end_game('win')  # the parameters: 'win' or 'lose'
+        clear_screen()
+        hero = hero_info.list_hero_stats(hero_statistics)
+        ui.display_board(board, hero)
+
+    # end = 'win'  # the 'end' depends from the life of Necromancer-rat
+    end_game.end_game(end)  # the parameters: 'win' or 'lose'
 
 
 if __name__ == '__main__':
