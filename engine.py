@@ -33,7 +33,7 @@ def create_board(width, height):
 
 
     
-def put_player_on_board(board, player):
+def put_player_on_board(board, player, last_position=[1,1]):
     '''
     Puts the player icon on the board on player coordinates.
 
@@ -44,6 +44,9 @@ def put_player_on_board(board, player):
     Returns:
     list: The game board with the player sign on it
     '''
+    POS_Y = 0
+    POS_X = 1
+    board[last_position[POS_Y]][last_position[POS_X]] = '.'
     board[player['y']][player['x']] = player['icon']
 
     return board
