@@ -10,11 +10,21 @@ PLAYER_START_Y = 3
 BOARD_WIDTH = 80
 BOARD_HEIGHT = 30
 
-CONTROL_DICT={
+CONTROL_DICT = {
     'w':[-1,0],
     's':[1,0],
     'a':[0,-1],
-    'd':[0,1]}
+    'd':[0,1]
+}
+
+PLAYER_STATS = {
+    'STR': 10,
+    'DEX': 10,
+    'CON': 10,
+    'INT': 10,
+    'WIS': 10,
+    'CHA': 10
+}
 
 
 def create_player():
@@ -29,6 +39,7 @@ def create_player():
     player["x"] = PLAYER_START_X
     player["y"] = PLAYER_START_Y
     player["icon"] = PLAYER_ICON
+    player["stats"] = PLAYER_STATS
     return player
 
 
@@ -44,9 +55,7 @@ def change_position(movement, player, board):
 
 
 def main():
-
     player = create_player()
-    
 
     is_running = True
     
@@ -64,7 +73,8 @@ def main():
             clear_screen()
             ui.display_board(board)
 
-    end_game.end_game('win')  # the parameters: 'win' or 'lose'
+    end = 'win'  # the 'end' depends from the life of Necromancer-rat
+    end_game.end_game(end)  # the parameters: 'win' or 'lose'
 
 
 if __name__ == '__main__':
