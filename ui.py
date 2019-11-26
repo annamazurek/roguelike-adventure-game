@@ -1,4 +1,4 @@
-def display_board(board):
+def display_board(board, hero):
     '''
     Displays complete game board on the screen
     
@@ -6,10 +6,12 @@ def display_board(board):
     Returns:
     Nothing 
     '''
-    for row in board:
-        for col in row:
-            print(col, end = '')
-        print('', end = '\n')
+
+    for i in range(len(board)):
+        if i in range(len(hero)):
+            print(f"{hero[i].ljust(15) + ''.join(board[i])}")
+        else:
+            print(f"{15*' ' + ''.join(board[i])}")
 
 
 def display_ascii(ascii_art):
