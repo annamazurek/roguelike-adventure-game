@@ -9,6 +9,12 @@ PLAYER_START_Y = 3
 BOARD_WIDTH = 80
 BOARD_HEIGHT = 30
 
+CONTROL_DICT={
+    'w':[-1,0],
+    's':[1,0],
+    'a':[0,-1],
+    'd':[0,1]}
+
 
 def create_player():
     '''
@@ -25,9 +31,21 @@ def create_player():
     return player
 
 
+def change_position(movement, player, board):
+    new_y = player['y'] + movement[0]
+    new_x = player['x'] + movement[1]
+    if board[new_y][new_x] == '#':
+        pass
+    else:
+        player['y'] += movement[0]
+        player['x'] += movement[1]
+    return player
+
+
 def main():
 
     player = create_player()
+    
 
     is_running = True
     
@@ -37,9 +55,12 @@ def main():
             is_running = False
         if key == 'z':
             clear_screen()
-        else:
+        else:           
             board = engine.create_board(BOARD_WIDTH, BOARD_HEIGHT)
+            if key in 'wsad':
+                change_position(CONTROL_DICT[key], player, board)
             board = engine.put_player_on_board(board, player)
+            clear_screen()
             ui.display_board(board)
 
 

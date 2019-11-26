@@ -7,11 +7,32 @@ def create_board(width, height):
     int: The height of the board
 
     Returns:
-    list: Game board  
+    list: Game board 
     '''
-    pass
-    
 
+    board = []
+    upper = ['#']*width
+
+    for row in range(height):
+        line = []
+        if row == 0 or row == height-1:
+            board.append(upper)
+        else:
+            for col in range(width):
+                if col == 0 or col == width-1:
+                    line.append('#')
+                else:
+                    if col == 5:
+                        line.append('#')
+                    else:    
+                        line.append('.')
+            board.append(line)
+
+    return board
+
+
+
+    
 def put_player_on_board(board, player):
     '''
     Puts the player icon on the board on player coordinates.
@@ -23,4 +44,6 @@ def put_player_on_board(board, player):
     Returns:
     list: The game board with the player sign on it
     '''
-    pass
+    board[player['y']][player['x']] = player['icon']
+
+    return board
