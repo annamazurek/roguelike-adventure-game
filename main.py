@@ -46,7 +46,13 @@ def change_position(movement, player, board):
 
 
 def main():
+
+    clear_screen()
     player = create_player()
+    board = engine.create_board(BOARD_WIDTH, BOARD_HEIGHT)
+    board = engine.put_player_on_board(board, player)
+    ui.display_board(board)
+
 
     is_running = True
     while is_running:
@@ -57,16 +63,23 @@ def main():
 
         if key == 'q':
             is_running = False
-        elif key in 'wsad':
-            change_position(CONTROL_DICT[key], player, board)
-        board = engine.put_player_on_board(board, player)
 
-        clear_screen()
-        hero = hero_info.list_hero_stats(hero_statistics)
-        ui.display_board(board, hero)
+        if key == 'z':
+            clear_screen()
+        else:           
+            
+            last_position = [player['y'], player['x']]
+            if key in 'wsad':
+                change_position(CONTROL_DICT[key], player, board)
+            board = engine.put_player_on_board(board, player, last_position)
+            clear_screen()
+
+            hero = hero_info.list_hero_stats(hero_statistics)
+            ui.display_board(board, hero)
 
     # end = 'win'  # the 'end' depends from the life of Necromancer-rat
     end_game.end_game(end)  # the parameters: 'win' or 'lose'
+
 
 
 if __name__ == '__main__':
