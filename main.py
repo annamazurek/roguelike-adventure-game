@@ -31,6 +31,7 @@ def create_player():
     player["x"] = PLAYER_START_X
     player["y"] = PLAYER_START_Y
     player["icon"] = PLAYER_ICON
+    player["actual_stats"] = hero_info.actual_stats
     return player
 
 
@@ -51,7 +52,9 @@ def main():
     player = create_player()
     board = engine.create_board(BOARD_WIDTH, BOARD_HEIGHT)
     board = engine.put_player_on_board(board, player)
-    ui.display_board(board)
+    hero_statistics = player["actual_stats"]
+    hero = hero_info.list_hero_stats(hero_statistics)
+    ui.display_board(board, hero)
 
 
     is_running = True
