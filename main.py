@@ -1,6 +1,7 @@
 from helpers import *
 import engine
 import ui
+import end_game
 
 PLAYER_ICON = '@'
 PLAYER_START_X = 3
@@ -62,6 +63,8 @@ def main():
             board = engine.put_player_on_board(board, player)
             clear_screen()
             ui.display_board(board)
+
+    end_game.end_game('win')  # the parameters: 'win' or 'lose'
 
 
 if __name__ == '__main__':

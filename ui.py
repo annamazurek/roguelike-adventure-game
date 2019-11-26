@@ -10,3 +10,8 @@ def display_board(board):
         for col in row:
             print(col, end = '')
         print('', end = '\n')
+
+
+def display_ascii(ascii_art):
+    print(ascii_art)
+    
