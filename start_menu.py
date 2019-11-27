@@ -1,5 +1,6 @@
 import helpers
 import ui
+import race_menu
 
 
 def start_menu_structure():
@@ -58,9 +59,7 @@ def handle_menu_option(number_to_check):
 def move_forward(where):
     output = True
     if where == 0:
-        # go to GAME
-        print('GAME STARTS LOL PRESS ENTER')
-        input()
+        race_menu.race_start_menu()
         pass
     elif where == 1:
         print('GAME STARTS LOL PRESS ENTER')
@@ -72,7 +71,7 @@ def move_forward(where):
     return output
 
 
-def start_menu():
+def begin_start_menu():
     is_running = True
 
     FIRST_ELEMENT = 0
@@ -91,4 +90,4 @@ def start_menu():
         num_of_option = menu_handler_options[SECOND_ELEMENT]
         
 
-start_menu()
+begin_start_menu()

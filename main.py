@@ -3,14 +3,15 @@ import engine
 import ui
 import end_game
 import duel
+# from start_menu import *
 
 PLAYER_ICON = '@'
 PLAYER_START_X = 3
 PLAYER_START_Y = 3
-PLAYER_NAME = input("What is your name?")  # to change
-PLAYER_RACE = "elf"  # to change - zamiast inputa wywołanie funkcji zwracającej rasę
-PLAYER_CLASS = "rouge"  # to change - zamiast inputa wywołanie funkcji zwracającej klasę
-PLAYER_CHARACTER = "Neutral"  # to change - zamiast inputa wywołanie funkcji zwracającej charakter
+# PLAYER_NAME = input("What is your name?")  # to change
+# PLAYER_RACE = "elf"  # to change - zamiast inputa wywołanie funkcji zwracającej rasę
+# PLAYER_CLASS = "rouge"  # to change - zamiast inputa wywołanie funkcji zwracającej klasę
+# PLAYER_CHARACTER = "Neutral"  # to change - zamiast inputa wywołanie funkcji zwracającej charakter
 
 
 BOARD_WIDTH = 80
@@ -25,7 +26,7 @@ CONTROL_DICT = {
 }
 
 
-def create_player():
+def create_player(usr_name, race, hero_class):
     '''
     Creates a 'player' dictionary for storing all player related informations - i.e. player icon, player position.
     Fell free to extend this dictionary!
@@ -38,10 +39,9 @@ def create_player():
     player["x"] = PLAYER_START_X
     player["y"] = PLAYER_START_Y
     player["icon"] = PLAYER_ICON
-    player["name"] = PLAYER_NAME
-    player["race"] = PLAYER_RACE
-    player["class"] = PLAYER_CLASS
-    player["char"] = PLAYER_CHARACTER
+    player["name"] = usr_name
+    player["race"] = race
+    player["class"] = hero_class
     player["max_HP"] = 10
     player["max_mana"] = 10
     player["stats"] = {
@@ -58,7 +58,7 @@ def create_player():
 
 
 def list_stats(statistics, player):
-    info = [player["name"], player["race"], player["class"], player["char"]]
+    info = [player["name"], player["race"], player["class"]]
     # for key in statistics[2:]:
     #     info.append(f"{player["stats"][key]}")
     info.append(f"HP: {statistics['HP']}/{player['max_HP']}")
@@ -68,15 +68,15 @@ def list_stats(statistics, player):
     return info
 
 
-def hero_items():
+def hero_items(player):
     items = {"Weapon": [], "Armour": [], "Potions": []}
-    if PLAYER_CLASS == "wizzard":
+    if player['class'] == "Wizzard":
         items["Weapon"] = ["Wand"]
         items["Armour"] = ["Leather helmet"]
-    elif PLAYER_CLASS == "knight":
+    elif player['class'] == "Knight":
         items["Weapon"] = ["Sword"]
         items["Armour"] = ["Helmet", "Shield", "Heavy armour"]
-    elif PLAYER_CLASS == "rouge":
+    elif player['class'] == "Rouge":
         items["Weapon"] = ["Daggers"]
         items["Armour"] = ["Leather helmet", "Leather armour"]
     return items
@@ -121,7 +121,7 @@ def play_game(player, board):
         last_position = [player['y'], player['x']]
         # hero_statistics = player["stats"]
         hero = list_stats(player['stats'], player)  # Create a list of hero stats
-        items = hero_items()
+        items = hero_items(player)
         if key == 'q':
             break
         elif key == 'i':
@@ -146,9 +146,9 @@ def play_game(player, board):
         ui.display_board(board, hero)
 
 
-def main():
+def main(name, race, hero_class):
     clear_screen()
-    player = create_player()
+    player = create_player(name, race, hero_class)
 
 
     # board = engine.create_board(BOARD_WIDTH, BOARD_HEIGHT)
@@ -176,12 +176,8 @@ def main():
     restart_game()
 
 def restart_game():
-    print('restart y/n?')
+    print('Press to continue')
     key = key_pressed()
-    if key == 'y':
-        main()
-    else:
-        print('bb')
 
 
 

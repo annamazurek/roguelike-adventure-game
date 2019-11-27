@@ -104,24 +104,28 @@ def move_forward(where):
     if where == 0:
         helpers.clear_screen()
         print(human)
+        where = 'Human'
         # input()
         
         
     elif where == 1:
         helpers.clear_screen()
         print(halfling)
+        where = 'Halfling'
         # input()
         
         
     elif where == 2:
         helpers.clear_screen()
         print(dwarf)
+        where = 'Dwarf'
         # input()
         
         
     elif where == 3:
         helpers.clear_screen()
         print(elf)
+        where = 'Elf'
         # input()
         
         
@@ -129,11 +133,12 @@ def move_forward(where):
         # go to LEAVE
         output = False
         
-    class_menu.start_menu()
+    class_menu.start_menu(where)
+    output = False
     return output
 
 
-def start_menu():
+def race_start_menu():
     is_running = True
 
     FIRST_ELEMENT = 0
@@ -152,4 +157,3 @@ def start_menu():
         num_of_option = menu_handler_options[SECOND_ELEMENT]
         
 
-start_menu()

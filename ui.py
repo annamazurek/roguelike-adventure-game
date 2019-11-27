@@ -12,7 +12,7 @@ def display_board(board, hero):
 
     for i in range(len(board)):
         if i in range(len(hero)):
-            print(f"{hero[i].ljust(15) + ''.join(board[i])}")
+            print(f"{str(hero[i]).ljust(15) + ''.join(board[i])}")
         else:
             print(f"{15*' ' + ''.join(board[i])}")
     
