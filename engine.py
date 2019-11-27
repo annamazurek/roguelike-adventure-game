@@ -22,10 +22,7 @@ def create_board(width, height):
                 if col == 0 or col == width-1:
                     line.append('#')
                 else:
-                    if col == 5:
-                        line.append('#')
-                    else:    
-                        line.append('.')
+                    line.append('.')
             board.append(line)
 
     return board
