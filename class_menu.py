@@ -1,5 +1,6 @@
 import helpers
 import ui
+import main
 
 choose_character =  """ 
 
@@ -8,7 +9,7 @@ choose_character =  """
                                                     ██║     ███████║██║   ██║██║   ██║███████╗█████╗      ██║     ██║     ███████║███████╗███████╗╚═╝
                                                     ██║     ██╔══██║██║   ██║██║   ██║╚════██║██╔══╝      ██║     ██║     ██╔══██║╚════██║╚════██║██╗
                                                     ╚██████╗██║  ██║╚██████╔╝╚██████╔╝███████║███████╗    ╚██████╗███████╗██║  ██║███████║███████║╚═╝
-                                                    ╚═════╝╚═╝  ╚═╝ ╚═════╝  ╚═════╝ ╚══════╝╚══════╝     ╚═════╝╚══════╝╚═╝  ╚═╝╚══════╝╚══════╝   
+                                                     ╚═════╝╚═╝  ╚═╝ ╚═════╝  ╚═════╝ ╚══════╝╚══════╝     ╚═════╝╚══════╝╚═╝  ╚═╝╚══════╝╚══════╝   
                 """
 
 
@@ -205,8 +206,6 @@ elf = """
                                                                                               '---' 
 
                 """
-                                #
-
 def start_menu_structure():
     menu = [wizzard, knight, rouge]
     # 88
@@ -236,6 +235,7 @@ def start_menu_handler(key, option):
     # ask user for input
     print(key)
     output = True
+    user_name = ''
     if key == 'a':
         option -= 1
     if key == 'd':
@@ -244,8 +244,12 @@ def start_menu_handler(key, option):
         output = False
     if key == 'c':
         output = move_forward(option)
+    
+        user_name = input('Please enter player name: ')
+
     num_of_option = handle_menu_option(option)  
-    return [output, num_of_option]
+    
+    return [output, num_of_option, user_name]
 
 
 def handle_menu_option(number_to_check):
@@ -262,19 +266,19 @@ def move_forward(where):
     if where == 0:
         helpers.clear_screen()
         print(wizzard)
-        input()
+        # input()
         return wizzard
         pass
     elif where == 1:
         helpers.clear_screen()
         print(knight)
-        input()
+        # input()
         return knight
         pass
     elif where == 2:
         helpers.clear_screen()
         print(rouge)
-        input()
+        # input()
         return rouge
         pass
     # elif where == 3:
@@ -312,4 +316,7 @@ def start_menu():
         menu_handler_options = start_menu_handler(key, num_of_option)
         is_running = menu_handler_options[FIRST_ELEMENT]
         num_of_option = menu_handler_options[SECOND_ELEMENT]
+        user_name = menu_handler_options[2]
+        if len(user_name) > 1:
+            main.main()
         
