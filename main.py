@@ -3,6 +3,7 @@ import engine
 import ui
 import end_game
 import hero_info
+import duel
 
 PLAYER_ICON = '@'
 PLAYER_START_X = 3
@@ -36,6 +37,10 @@ def create_player():
     player["x"] = PLAYER_START_X
     player["y"] = PLAYER_START_Y
     player["icon"] = PLAYER_ICON
+
+    player["actual_stats"] = hero_info.actual_stats
+    player['hp'] = 50
+    player['dmg'] = 5
     # hero_info.hero.name = PLAYER_NAME
     # hero_info.hero.race = PLAYER_RACE
     hero_info.hero.hero_class = PLAYER_CLASS
@@ -57,9 +62,17 @@ def hero_items():
     return items
 
 
-def change_position(movement, player, board):  # maybe plop it to the engine module?
-    new_y = player['y'] + movement[0]
-    new_x = player['x'] + movement[1]
+def change_position(movement, player, board):
+
+    y_pos = 0
+    x_pos = 1
+
+    new_y = player['y'] + movement[y_pos]
+    new_x = player['x'] + movement[x_pos]
+    
+    if board[new_y][new_x] == 'S': 
+        duel.duel_menu(player)
+        # check if player is dead and move - alive->move dead->finish
     if board[new_y][new_x] == '#':
         pass
     else:
