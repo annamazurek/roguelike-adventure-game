@@ -3,10 +3,16 @@ import engine
 import ui
 import end_game
 import duel
+# from start_menu import *
 
 PLAYER_ICON = '@'
 PLAYER_START_X = 3
 PLAYER_START_Y = 3
+# PLAYER_NAME = input("What is your name?")  # to change
+# PLAYER_RACE = "elf"  # to change - zamiast inputa wywołanie funkcji zwracającej rasę
+# PLAYER_CLASS = "rouge"  # to change - zamiast inputa wywołanie funkcji zwracającej klasę
+# PLAYER_CHARACTER = "Neutral"  # to change - zamiast inputa wywołanie funkcji zwracającej charakter
+
 
 BOARD_WIDTH = 80
 BOARD_HEIGHT = 30
@@ -20,7 +26,7 @@ CONTROL_DICT = {
 }
 
 
-def create_player(name, race, hero_class):
+def create_player(usr_name, race, hero_class):
     '''
     Creates a 'player' dictionary for storing all player related informations - i.e. player icon, player position.
     Fell free to extend this dictionary!
@@ -33,7 +39,7 @@ def create_player(name, race, hero_class):
     player["x"] = PLAYER_START_X
     player["y"] = PLAYER_START_Y
     player["icon"] = PLAYER_ICON
-    player["name"] = name
+    player["name"] = usr_name
     player["race"] = race
     player["class"] = hero_class
     player["max_HP"] = 10
@@ -65,13 +71,13 @@ def list_stats(statistics, player):
 
 def hero_items(player):
     items = {"Weapon": [], "Armour": [], "Potions": []}
-    if player["class"] == "wizzard":
+    if player['class'] == "Wizzard":
         items["Weapon"] = ["Wand"]
         items["Armour"] = ["Leather helmet"]
-    elif player["class"] == "knight":
+    elif player['class'] == "Knight":
         items["Weapon"] = ["Sword"]
         items["Armour"] = ["Helmet", "Shield", "Heavy armour"]
-    elif player["class"] == "rouge":
+    elif player['class'] == "Rouge":
         items["Weapon"] = ["Daggers"]
         items["Armour"] = ["Leather helmet", "Leather armour"]
     return items
@@ -141,9 +147,10 @@ def play_game(player, board):
         ui.display_board(board, hero)
 
 
-def main():
+def main(name, race, hero_class):
     clear_screen()
-    player = create_player("Janusz", "Elf", "rouge")
+    player = create_player(name, race, hero_class)
+    # board = engine.create_board(BOARD_WIDTH, BOARD_HEIGHT)
     board = engine.read_map('map.txt')
     board = engine.put_player_on_board(board, player, map_elements)
     hero = list_stats(player['stats'], player)
@@ -165,12 +172,8 @@ def main():
     restart_game()
 
 def restart_game():
-    print('restart y/n?')
+    print('Press to continue')
     key = key_pressed()
-    if key == 'y':
-        main()
-    else:
-        print('bb')
 
 
 
