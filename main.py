@@ -2,7 +2,7 @@ from helpers import *
 import engine
 import ui
 import end_game
-# import hero_info
+import duel
 
 PLAYER_ICON = '@'
 PLAYER_START_X = 3
@@ -52,11 +52,28 @@ def create_player():
         'WIS': 10,
         'CHA': 10
     }
-
-
     return player
 
+
 HERO_STATS = create_player()["stats"]  # hero actual stats
+
+def change_position(movement, player, board):
+
+    y_pos = 0
+    x_pos = 1
+
+    new_y = player['y'] + movement[y_pos]
+    new_x = player['x'] + movement[x_pos]
+    
+    if board[new_y][new_x] == 'S': 
+        duel.duel_menu(player)
+        # check if player is dead and move - alive->move dead->finish
+    if board[new_y][new_x] == '#':
+        pass
+    else:
+        player['y'] += movement[0]
+        player['x'] += movement[1]
+    return player
 
 
 def list_stats(statistics, player):
@@ -84,9 +101,17 @@ def hero_items():
     return items
 
 
-def change_position(movement, player, board):  # maybe plop it to the engine module?
-    new_y = player['y'] + movement[0]
-    new_x = player['x'] + movement[1]
+def change_position(movement, player, board):
+
+    y_pos = 0
+    x_pos = 1
+
+    new_y = player['y'] + movement[y_pos]
+    new_x = player['x'] + movement[x_pos]
+    
+    if board[new_y][new_x] == 'S': 
+        duel.duel_menu(player)
+        # check if player is dead and move - alive->move dead->finish
     if board[new_y][new_x] == '#':
         pass
     else:
@@ -122,8 +147,8 @@ def play_game(player, board):
             board = engine.put_player_on_board(board, player, last_position)
         clear_screen()
         ui.display_board(board, hero)
-        HERO_STATS['HP'] += 1
-        HERO_STATS["Mana"] += 1
+        # HERO_STATS['HP'] += 1
+        # HERO_STATS["Mana"] += 1
 
 
 def main():
@@ -131,7 +156,7 @@ def main():
     player = create_player()
     board = engine.create_board(BOARD_WIDTH, BOARD_HEIGHT)
     board = engine.put_player_on_board(board, player)
-    # when you want to change some statistic, type in your code i.e.:    player["stats"]["HP"] = 11  or  player["stats"]["STR"] += 1
+    # when you want to change some statistic, type in your code i.e.:    HERO_STATS['HP'] = 11  or  HERO_STATS["Mana"] += 1
     hero = list_stats(HERO_STATS, player)
     ui.display_board(board, hero)
     ui.display_dialog_window("Hello Adventurer!")

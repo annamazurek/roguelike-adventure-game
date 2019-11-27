@@ -9,7 +9,6 @@ def create_board(width, height):
     Returns:
     list: Game board 
     '''
-
     board = []
     upper = ['#']*width
 

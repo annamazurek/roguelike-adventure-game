@@ -1,10 +1,13 @@
+import helpers
+
+
 def display_board(board, hero):
     '''
     Displays complete game board on the screen
     
 
     Returns:
-    Nothing 
+    Nothing
     '''
 
     for i in range(len(board)):
@@ -12,7 +15,10 @@ def display_board(board, hero):
             print(f"{hero[i].ljust(15) + ''.join(board[i])}")
         else:
             print(f"{15*' ' + ''.join(board[i])}")
-
+    
+    # helpers.clear_screen()
+    # for row in board:
+    #     print(''.join(row))  # ???
 
 def display_ascii(ascii_art):
     print(ascii_art)
@@ -38,4 +44,5 @@ def display_dialog_window(text):
         print(f"|{line.center(118)}|")
     print(f"|{118*' '}|")
     print('X' + 118*'~' + 'X')
+
 
