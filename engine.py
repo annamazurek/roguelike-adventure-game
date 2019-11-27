@@ -1,3 +1,15 @@
+def read_map(filename):
+    board = []
+    with open(filename, 'r') as f:
+        board = []
+        for line in f:
+            line = line.strip()
+            char_list = []
+            for letter in line:
+                char_list.append(letter)
+            board.append(char_list)
+    return board
+
 def create_board(width, height):
     '''
     Creates game board based on input parameters.
@@ -21,7 +33,10 @@ def create_board(width, height):
                 if col == 0 or col == width-1:
                     line.append('#')
                 else:
-                    line.append('.')
+                    if col == 5 and row ==5:
+                        line.append('S')
+                    else:
+                        line.append('.')
             board.append(line)
 
     return board
@@ -29,7 +44,7 @@ def create_board(width, height):
 
 
     
-def put_player_on_board(board, player, last_position=[1,1]):
+def put_player_on_board(board, player, maplist, last_position=[1,1]):
     '''
     Puts the player icon on the board on player coordinates.
 
@@ -42,7 +57,10 @@ def put_player_on_board(board, player, last_position=[1,1]):
     '''
     POS_Y = 0
     POS_X = 1
-    board[last_position[POS_Y]][last_position[POS_X]] = '.'
+    if len(maplist)<2:
+        board[last_position[POS_Y]][last_position[POS_X]] = '.'
+    else:
+        board[last_position[POS_Y]][last_position[POS_X]] = maplist[1]
     board[player['y']][player['x']] = player['icon']
 
     return board

@@ -15,6 +15,7 @@ PLAYER_CHARACTER = "Neutral"  # to change - zamiast inputa wywołanie funkcji zw
 
 BOARD_WIDTH = 80
 BOARD_HEIGHT = 30
+map_elements = []
 
 CONTROL_DICT = {
     'w':[-1,0],
@@ -32,6 +33,7 @@ def create_player():
     Returns:
     dictionary
     '''
+    # player position and look
     player = {}
     player["x"] = PLAYER_START_X
     player["y"] = PLAYER_START_Y
@@ -52,27 +54,6 @@ def create_player():
         'WIS': 10,
         'CHA': 10
     }
-    return player
-
-
-HERO_STATS = create_player()["stats"]  # hero actual stats
-
-def change_position(movement, player, board):
-
-    y_pos = 0
-    x_pos = 1
-
-    new_y = player['y'] + movement[y_pos]
-    new_x = player['x'] + movement[x_pos]
-    
-    if board[new_y][new_x] == 'S': 
-        duel.duel_menu(player)
-        # check if player is dead and move - alive->move dead->finish
-    if board[new_y][new_x] == '#':
-        pass
-    else:
-        player['y'] += movement[0]
-        player['x'] += movement[1]
     return player
 
 
@@ -100,6 +81,11 @@ def hero_items():
         items["Armour"] = ["Leather helmet", "Leather armour"]
     return items
 
+# def stats_to_list(player):
+#     stats_list=[]
+#     for key, value in player():
+#         stats_list.append(f'{key}: {value}')
+#     return stats_list
 
 def change_position(movement, player, board):
 
@@ -108,16 +94,24 @@ def change_position(movement, player, board):
 
     new_y = player['y'] + movement[y_pos]
     new_x = player['x'] + movement[x_pos]
-    
-    if board[new_y][new_x] == 'S': 
-        duel.duel_menu(player)
-        # check if player is dead and move - alive->move dead->finish
+
     if board[new_y][new_x] == '#':
+        map_ele = '.'
         pass
     else:
+        map_ele = board[new_y][new_x]
         player['y'] += movement[0]
         player['x'] += movement[1]
-    return player
+    
+    if board[new_y][new_x] == 'S': 
+        duel.duel_menu(player['stats'])
+        map_ele = 'x'
+        # check if player is dead and move - alive->move dead->finish
+    if board[new_y][new_x] == 'N':
+        ui.display_dialog_window('hello')
+        key_pressed()
+
+    return map_ele
 
 
 def play_game(player, board):
@@ -143,28 +137,51 @@ def play_game(player, board):
         elif key == 'z':
             clear_screen()
         elif key in 'wsad':
-            change_position(CONTROL_DICT[key], player, board)
-            board = engine.put_player_on_board(board, player, last_position)
+            map_elements.insert(0, change_position(CONTROL_DICT[key], player, board))
+            board = engine.put_player_on_board(board, player, map_elements, last_position)
         clear_screen()
+        if player['HP'] <= 0:
+            break
+        
         ui.display_board(board, hero)
-        # HERO_STATS['HP'] += 1
-        # HERO_STATS["Mana"] += 1
 
 
 def main():
     clear_screen()
     player = create_player()
-    board = engine.create_board(BOARD_WIDTH, BOARD_HEIGHT)
-    board = engine.put_player_on_board(board, player)
-    # when you want to change some statistic, type in your code i.e.:    HERO_STATS['HP'] = 11  or  HERO_STATS["Mana"] += 1
+
+
+    # board = engine.create_board(BOARD_WIDTH, BOARD_HEIGHT)
+
+    board = engine.read_map('map.txt')
+    board = engine.put_player_on_board(board, player, map_elements)
+    hero_statistics = hero_info.actual_stats
     hero = list_stats(HERO_STATS, player)
+
     ui.display_board(board, hero)
     ui.display_dialog_window("Hello Adventurer!")
 
     play_game(player, board)
+
+
+    if player['HP'] <= 0:
+        end = 'die'
+    else:
+        end = 'win'  # the 'end' depends from the life of Necromancer-rat
+
     clear_screen()
     # end = 'win'  # the 'end' depends from the life of Necromancer-rat
+
     end_game.end_game(end)  # the parameters: 'win' or 'lose'
+    restart_game()
+
+def restart_game():
+    print('restart y/n?')
+    key = key_pressed()
+    if key == 'y':
+        main()
+    else:
+        print('bb')
 
 
 
