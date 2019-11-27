@@ -120,7 +120,7 @@ def play_game(player, board):
         # board = engine.create_board(BOARD_WIDTH, BOARD_HEIGHT)
         last_position = [player['y'], player['x']]
         # hero_statistics = player["stats"]
-        hero = list_stats(HERO_STATS, player)  # Create a list of hero stats
+        hero = list_stats(player['stats'], player)  # Create a list of hero stats
         items = hero_items()
         if key == 'q':
             break
@@ -140,7 +140,7 @@ def play_game(player, board):
             map_elements.insert(0, change_position(CONTROL_DICT[key], player, board))
             board = engine.put_player_on_board(board, player, map_elements, last_position)
         clear_screen()
-        if player['HP'] <= 0:
+        if player['stats']['HP'] <= 0:
             break
         
         ui.display_board(board, hero)
@@ -155,8 +155,8 @@ def main():
 
     board = engine.read_map('map.txt')
     board = engine.put_player_on_board(board, player, map_elements)
-    hero_statistics = hero_info.actual_stats
-    hero = list_stats(HERO_STATS, player)
+    # hero_statistics = hero_info.actual_stats
+    hero = list_stats(player['stats'], player)
 
     ui.display_board(board, hero)
     ui.display_dialog_window("Hello Adventurer!")
@@ -164,7 +164,7 @@ def main():
     play_game(player, board)
 
 
-    if player['HP'] <= 0:
+    if player['stats']['HP'] <= 0:
         end = 'die'
     else:
         end = 'win'  # the 'end' depends from the life of Necromancer-rat
