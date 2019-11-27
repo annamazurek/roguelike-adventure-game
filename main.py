@@ -2,16 +2,15 @@ from helpers import *
 import engine
 import ui
 import end_game
-import hero_info
 import duel
 
 PLAYER_ICON = '@'
 PLAYER_START_X = 3
 PLAYER_START_Y = 3
-# PLAYER_NAME = input("What is your name?")  # to change
-# PLAYER_RACE = input("What is your race?")  # to change - zamiast inputa wywołanie funkcji zwracającej rasę
-PLAYER_CLASS = input("What is your class?")  # to change - zamiast inputa wywołanie funkcji zwracającej klasę
-# PLAYER_CHARACTER = input("What is your character?")  # to change - zamiast inputa wywołanie funkcji zwracającej charakter
+PLAYER_NAME = input("What is your name?")  # to change
+PLAYER_RACE = "elf"  # to change - zamiast inputa wywołanie funkcji zwracającej rasę
+PLAYER_CLASS = "rouge"  # to change - zamiast inputa wywołanie funkcji zwracającej klasę
+PLAYER_CHARACTER = "Neutral"  # to change - zamiast inputa wywołanie funkcji zwracającej charakter
 
 
 BOARD_WIDTH = 80
@@ -39,22 +38,34 @@ def create_player():
     player["x"] = PLAYER_START_X
     player["y"] = PLAYER_START_Y
     player["icon"] = PLAYER_ICON
-
-    # player stats
-    player['HP'] = 25
-    player['MANA'] = 10
-    player['STR'] = 20
-    player['DEX'] = 15
-    player['CON'] = 10
-    player['INT'] = 10
-    player['WIS'] = 10
-    player['CHA'] = 10
-    
-    # hero_info.hero.name = PLAYER_NAME
-    # hero_info.hero.race = PLAYER_RACE
-    hero_info.hero.hero_class = PLAYER_CLASS
-    # hero_info.hero.character = PLAYER_CHARACTER
+    player["name"] = PLAYER_NAME
+    player["race"] = PLAYER_RACE
+    player["class"] = PLAYER_CLASS
+    player["char"] = PLAYER_CHARACTER
+    player["max_HP"] = 10
+    player["max_mana"] = 10
+    player["stats"] = {
+        'HP': 10,
+        'Mana': 10,
+        'STR': 10,
+        'DEX': 10,
+        'CON': 10,
+        'INT': 10,
+        'WIS': 10,
+        'CHA': 10
+    }
     return player
+
+
+def list_stats(statistics, player):
+    info = [player["name"], player["race"], player["class"], player["char"]]
+    # for key in statistics[2:]:
+    #     info.append(f"{player["stats"][key]}")
+    info.append(f"HP: {statistics['HP']}/{player['max_HP']}")
+    info.append(f"Mana: {statistics['Mana']}/{player['max_mana']}")
+    for key, value in list(statistics.items())[2:]:
+        info.append(f"{key}: {value}")
+    return info
 
 
 def hero_items():
@@ -93,7 +104,7 @@ def change_position(movement, player, board):
         player['x'] += movement[1]
     
     if board[new_y][new_x] == 'S': 
-        duel.duel_menu(player)
+        duel.duel_menu(player['stats'])
         map_ele = 'x'
         # check if player is dead and move - alive->move dead->finish
     if board[new_y][new_x] == 'N':
@@ -107,10 +118,9 @@ def play_game(player, board):
     while True:
         key = key_pressed().lower()
         # board = engine.create_board(BOARD_WIDTH, BOARD_HEIGHT)
-        # stats_list = stats_to_list(player)
         last_position = [player['y'], player['x']]
-        hero_statistics = hero_info.actual_stats
-        hero = hero_info.list_hero_stats(hero_statistics)
+        # hero_statistics = player["stats"]
+        hero = list_stats(HERO_STATS, player)  # Create a list of hero stats
         items = hero_items()
         if key == 'q':
             break
@@ -120,7 +130,10 @@ def play_game(player, board):
                 ui.display_items(items)
                 key = key_pressed().lower()
                 if key == 'q':
+                    print('q')
                     break
+                else:
+                    clear_screen()
         elif key == 'z':
             clear_screen()
         elif key in 'wsad':
@@ -131,28 +144,34 @@ def play_game(player, board):
             break
         
         ui.display_board(board, hero)
-        print(player['HP'])
 
 
 def main():
     clear_screen()
-    ui.display_dialog_window("Hello Adventurer!")
     player = create_player()
+
 
     # board = engine.create_board(BOARD_WIDTH, BOARD_HEIGHT)
 
     board = engine.read_map('map.txt')
     board = engine.put_player_on_board(board, player, map_elements)
     hero_statistics = hero_info.actual_stats
-    hero = hero_info.list_hero_stats(hero_statistics)
+    hero = list_stats(HERO_STATS, player)
+
     ui.display_board(board, hero)
+    ui.display_dialog_window("Hello Adventurer!")
 
     play_game(player, board)
+
 
     if player['HP'] <= 0:
         end = 'die'
     else:
         end = 'win'  # the 'end' depends from the life of Necromancer-rat
+
+    clear_screen()
+    # end = 'win'  # the 'end' depends from the life of Necromancer-rat
+
     end_game.end_game(end)  # the parameters: 'win' or 'lose'
     restart_game()
 
