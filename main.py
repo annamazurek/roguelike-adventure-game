@@ -56,8 +56,6 @@ def create_player(usr_name, race, hero_class):
         'CHA': 10
     }
     player["items"] = hero_items(player)
-    global HERO_STATS
-    HERO_STATS = player["stats"]
     return player
 
 
@@ -102,17 +100,26 @@ def change_level(which_lvl):
 # TOTALLY NEW
 
 def hero_items(player):
-    items = {"Weapon": [], "Armour": [], "Potions": []}
+    #added accesories
+    items = {"Weapon": [], "Armour": [], "Potions": [], "Accesories": []}
     if player['class'] == "Wizzard":
         items["Weapon"] = ["Wand"]
         items["Armour"] = ["Leather helmet"]
+        items["Potions"] = ['Health potion']
     elif player['class'] == "Knight":
         items["Weapon"] = ["Sword"]
         items["Armour"] = ["Helmet", "Shield", "Heavy armour"]
+        items["Potions"] = ['Health potion']
     elif player['class'] == "Rouge":
         items["Weapon"] = ["Daggers"]
         items["Armour"] = ["Leather helmet", "Leather armour"]
+        items["Potions"] = ['Health potion']
     return items
+
+def add_hero_item(player_obj, type_of_item, item_name):
+    player_obj['items'][type_of_item].append(item_name)
+    return player_obj
+
 
 # def stats_to_list(player):
 #     stats_list=[]
@@ -126,6 +133,7 @@ def change_position(movement, player, board):
     x_pos = 1
 
     new_board = False
+    new_item = False
 
     new_y = player['y'] + movement[y_pos]
     new_x = player['x'] + movement[x_pos]
@@ -152,9 +160,14 @@ def change_position(movement, player, board):
         player = change_the_level[0]
         new_board = change_the_level[1]
         pass
+
+    if board[new_y][new_x] == '$':
+        player = add_hero_item(player, 'Accesories', 'Key')
+        new_item = True
+        map_ele = '.'
     
 
-    return [map_ele, new_board, player] 
+    return [map_ele, new_board, player, new_item] 
     # TOTALY NEW
 
 def play_game(player, board):
@@ -164,7 +177,7 @@ def play_game(player, board):
         last_position = [player['y'], player['x']]
         # hero_statistics = player["stats"]
         hero = list_stats(player['stats'], player)  # Create a list of hero stats
-        items = hero_items(player)
+        items = player['items']
         if key == 'q':
             break
         elif key == 'i':
@@ -188,6 +201,11 @@ def play_game(player, board):
                 player['x'] = changing_position[2]['x']
                 player['y'] = changing_position[2]['y']
                 player['stats'] = changing_position[2]['stats']
+            elif changing_position[3] != False:
+                player = changing_position[2]
+                ui.display_dialog_window('You gained new item!')
+                print(player)
+                key_pressed()
             board = engine.put_player_on_board(board, player, map_elements, last_position)
             # TOTALY NEW
         
