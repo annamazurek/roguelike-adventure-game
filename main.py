@@ -187,6 +187,40 @@ def check_level(player_obj):
 #     for key, value in player():
 #         stats_list.append(f'{key}: {value}')
 #     return stats_list
+def dialoge(npc, player):
+    if npc == '!':
+        ui.display_dialog_window(
+            "\"Please help me! Rats have digged a big hole in my basement and took my beloved dauther!\nYou must rescue her, she is my only child!\"\n\n1. Don't worry, I am the most powerful Hero walking on this planet! I'll rescue her!\n2. I could help you, but not for free. What's in it for me?\n3. RATS?! Ehm, I mean.. I'm not afraid of rats, but I don't have time right now. Bye!")
+        key = key_pressed().lower()
+        while True:
+            if key == "1":
+                ui.display_dialog_window("\"Oh, thank God! Hurry up!\"\n\nPress 'C' to continue.")
+            elif key == "2":
+                ui.display_dialog_window("\"You greedy bastard! Alright, if she will return alive, I'll give you my golden pig.\nIt's the most precious thing in my house.\"\n\nPress 'C' to continue.")
+            elif key == "3":
+                break
+            key = key_pressed().lower()
+            if key == "c":
+                break
+    elif npc == '?':
+        ui.display_dialog_window(
+            "On the bridge you see some monster. As a brave Hero you feel that you have to kill it. But the closer you are,\nthe clearer it is that it doesn't want to attack you. Few steps later you see a pretty vampire woman.\n\n1. Are you a dauther of the villager, taken by rats?")
+        while True:
+            key = key_pressed().lower()
+            if key == "1":
+                ui.display_dialog_window("\"Silly question. Do I look like a village girl? No. But I saw her.\nShe was taken to the mighty Necromancer. You can't defeat him, but if you will guess\nmy riddle, I'll give you a key to a chess with useful items.\n\nHere is my riddle:\nI am not alive, but I grow;\nI don't have lungs, but I need air;\nI don't have a mouth, but water kills me.\nWhat am I?\"")
+                while True:
+                    answer = input("Your answer: ")
+                    if answer.lower() == "fire":
+                        ui.display_dialog_window("\"You're right! I suppose I have to devise more brain-busting riddle.\nHere is the key.\"")
+                        player = add_hero_item(player, 'Accesories', 'Key')
+                        new_item = True
+                        key = key_pressed().lower()
+                        break
+                    else:
+                        ui.display_dialog_window("\"Nope. Try again.\"")
+                break
+
 
 def change_position(movement, player, board):
 
@@ -230,7 +264,15 @@ def change_position(movement, player, board):
         if is_not_dead:
             new_kill = True
         # check if player is dead and move - alive->move dead->finish
+
     #################################################################
+
+    if board[new_y][new_x] == '!':
+        dialoge('!', player)
+    if board[new_y][new_x] == '?':
+        dialoge('?', player)
+        map_ele = '.'
+
     if board[new_y][new_x] == '#':
         # change lvl #TOTALY NEW
         change_the_level = change_level(player['Map'])
@@ -239,44 +281,27 @@ def change_position(movement, player, board):
         player['Map'] = change_the_level[2]
         map_ele = '.'
         pass
-    #################################################################        
-    if board[new_y][new_x] == '!':  #
-        ui.display_dialog_window('hello')  #
-        key = key_pressed().lower()  #
-        while True:  #
-            if key == "1":  #
-                ui.display_dialog_window('hello1')
-            elif key == "2":
-                ui.display_dialog_window('hello2')
-            elif key == "3":
-                break
-            key = key_pressed().lower()
-            if key == "c":
-                break  #
-    if board[new_y][new_x] == '?':  #
-        ui.display_dialog_window('hello')  #
-
-
     if board[new_y][new_x] == '$':
         player = add_hero_item(player, 'Accesories', 'Door key')
         new_item = True
         map_ele = '.'
+
     
 
     return [map_ele, new_board, player, new_item, new_kill, is_final_battle] 
+
     # TOTALY NEW
 
 def play_game(player, board):
     ui.display_dialog_window(
-        "You are a Hero. Leading a wasteful life, you are running out of money. Fortunately, you have\nheard that in the nearby village of Codecools Gate, residents will generously pay for getting\nrid of the rat plague, so you decided to quickly hit the road to anticipate the competitors.\n\nRiding the village on your musk deer, you hear the screams of a villager.\n\nPress 'C' to continue.")  #            
-    while True:  #
-        key = key_pressed().lower()  #
-        if key == "c":  #
-            clear_screen()  #
-            hero = list_stats(player['stats'], player)  #
-            ui.display_board(board, hero)  #
-            ui.display_dialog_window("To interact with NPC('!', '?') and monsters ('*', 'G', 'N', 'S') just go to their place.\nMove your character with keys: 'W', 'A', 'S', 'D'.")  #
-
+        "You are a Hero. Leading a wasteful life, you are running out of money. Fortunately, you have\nheard that in the nearby village of Codecools Gate, residents will generously pay for getting\nrid of the rat plague, so you decided to quickly hit the road to anticipate the competitors.\n\nRiding the village on your musk deer, you hear the screams of a villager.\n\nPress 'C' to continue.")
+    while True:
+        key = key_pressed().lower()
+        if key == "c":
+            clear_screen()
+            hero = list_stats(player['stats'], player)
+            ui.display_board(board, hero)
+            ui.display_dialog_window("To interact with NPC('!', '?'), doors ('/'), chests('$') and monsters ('*', 'G', 'N', 'S') just go to their place.\n\nTo check your inventory press 'I'.\n\nTo quit game, press 'Q'.\n\nMove your character with keys: 'W', 'A', 'S', 'D'.")  #
             while True:
                 key = key_pressed().lower()
                 # board = engine.create_board(BOARD_WIDTH, BOARD_HEIGHT)
@@ -293,9 +318,11 @@ def play_game(player, board):
                         key = key_pressed().lower()
                         if key == 'q':
                             break
+                        else:
+                            clear_screen()
                 elif key == 'z':
                     clear_screen()
-                elif key in 'wsad':
+                elif key.lower() in 'wsad':
                     # TOTALY NEW
                     changing_position = change_position(CONTROL_DICT[key], player, board)
                     player['Map'] = changing_position[2]['Map']
@@ -318,13 +345,13 @@ def play_game(player, board):
                 clear_screen()    
                 if player['stats']['HP'] <= 0:
                     end = end_game.end_game('die')  # the 'end' depends from the life of Necromancer-rat
+
                     # clear_screen()
                     break
                 elif changing_position[5] != False:
                     end_game.end_game('win')
                     key_pressed()
                     break
-
                 ui.display_board(board, hero)
             break
 
@@ -339,7 +366,10 @@ def main(name, race, hero_class):
     ui.display_board(board, hero)
     
     play_game(player, board)
-    #end_game.end_game(end = None)  #
+
+    ui.about_authors()
+    # end_game.end_game(end = None)
+
     restart_game()
 
 def restart_game():

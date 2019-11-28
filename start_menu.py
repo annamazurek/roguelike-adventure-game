@@ -4,8 +4,31 @@ import race_menu
 
 
 def start_menu_structure():
-    menu = ['START GAME', 'HIGHSCORE','EXIT']
+    start = """
+                                                                       ███████╗████████╗ █████╗ ██████╗ ████████╗
+                                                                       ██╔════╝╚══██╔══╝██╔══██╗██╔══██╗╚══██╔══╝
+                                                                       ███████╗   ██║   ███████║██████╔╝   ██║   
+                                                                       ╚════██║   ██║   ██╔══██║██╔══██╗   ██║   
+                                                                       ███████║   ██║   ██║  ██║██║  ██║   ██║   
+                                                                       ╚══════╝   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝ """
+    high_score = """ 
+                                                        ██╗  ██╗██╗ ██████╗ ██╗  ██╗    ███████╗ ██████╗ ██████╗ ██████╗ ███████╗   
+                                                        ██║  ██║██║██╔════╝ ██║  ██║    ██╔════╝██╔════╝██╔═══██╗██╔══██╗██╔════╝
+                                                        ███████║██║██║  ███╗███████║    ███████╗██║     ██║   ██║██████╔╝█████╗ 
+                                                        ██╔══██║██║██║   ██║██╔══██║    ╚════██║██║     ██║   ██║██╔══██╗██╔══╝  
+                                                        ██║  ██║██║╚██████╔╝██║  ██║    ███████║╚██████╗╚██████╔╝██║  ██║███████╗
+                                                        ╚═╝  ╚═╝╚═╝ ╚═════╝ ╚═╝  ╚═╝    ╚══════╝ ╚═════╝ ╚═════╝ ╚═╝  ╚═╝╚══════╝ """
+    exit_game = """
+                                                                            ███████╗██╗  ██╗██╗████████╗
+                                                                            ██╔════╝╚██╗██╔╝██║╚══██╔══╝
+                                                                            █████╗   ╚███╔╝ ██║   ██║   
+                                                                            ██╔══╝   ██╔██╗ ██║   ██║   
+                                                                            ███████╗██╔╝ ██╗██║   ██║   
+                                                                            ╚══════╝╚═╝  ╚═╝╚═╝   ╚═╝ """
+
+    menu = [start, high_score,exit_game]
     # 88
+    instruction = "TO NAVIGATE USE 'A'- KEY TO MOVE LEFT OR 'D' KEY TO MOVE RIGHT"
     title = """
 
                                 ██████╗  █████╗ ███████╗███████╗███╗   ███╗███████╗███╗   ██╗████████╗███████╗       ██╗       ██████╗  █████╗ ████████╗███████╗
@@ -46,7 +69,7 @@ def start_menu_structure():
                                                                                          __====_`-----'  .-------'
                                                                                                 `-------'
                                                                                                                                                                                    """
-    return [title, menu]
+    return [title, menu, instruction]
 
 
 # LATER TO UI
@@ -54,13 +77,15 @@ def print_menu(menu_structure, num_of_option):
     
     TITLE = 0
     MENU_COMPONENTS = 1
-    EXIT = 2
+    INSTRUCTION = 2
+    LENGHT_OF_LINE = 200
 
     print('{:^0}'.format(menu_structure[TITLE]))
     print()
-    print('{0:<0}{2:^100}{1:>0}'.format('<-a','d->',menu_structure[MENU_COMPONENTS][num_of_option]))
+    print('{0:<0}{2:^200}{1:>0}'.format('','',menu_structure[MENU_COMPONENTS][num_of_option]))
     print()
-    print('{:^106}'.format('press c to confirm'))
+    print(f'{menu_structure[INSTRUCTION].center(LENGHT_OF_LINE)}')
+    print('{:^200}'.format('Press "C" to confirm'))
     print(num_of_option)
 
 
