@@ -27,7 +27,7 @@ giant_rat = Monster(
     10
 )
 
-skeleton_rat = Monster(
+skeleton = Monster(
     "Skeleton Rat",
     10,
     0,
