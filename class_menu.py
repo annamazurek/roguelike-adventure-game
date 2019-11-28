@@ -225,7 +225,7 @@ def print_menu(menu_structure, num_of_option):
 
     print('{:^0}'.format(menu_structure[TITLE]))
     print()
-    print('{:^100}'.format(menu_structure[MENU_COMPONENTS][num_of_option]))
+    print('{:^200}'.format(menu_structure[MENU_COMPONENTS][num_of_option]))
     print()
     print(f'{menu_structure[INSTRUCTION].center(LENGHT_OF_LINE)}')
     print('{:^200}'.format('Press "C" to confirm'))
