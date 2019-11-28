@@ -246,7 +246,7 @@ def start_menu_handler(key, option):
         output = move_forward(option)
     
         user_name = input('Please enter player name: ')
-
+        
     num_of_option = handle_menu_option(option)  
     
     return [output, num_of_option, user_name]
@@ -291,15 +291,15 @@ def move_forward(where):
     #     helpers.clear_screen()
     #     print(elf)
     #     input()
-        return elf
-        pass
+        # return elf
+        # pass
     elif where == 9:
         # go to LEAVE
         output = False
     return output
 
 
-def start_menu():
+def start_menu(race):
     is_running = True
 
     FIRST_ELEMENT = 0
@@ -318,5 +318,12 @@ def start_menu():
         num_of_option = menu_handler_options[SECOND_ELEMENT]
         user_name = menu_handler_options[2]
         if len(user_name) > 1:
-            main.main()
+            if num_of_option == 0:
+                hero_class = 'Wizzard'
+            if num_of_option == 1:
+                hero_class = 'Knight'
+            if num_of_option == 2:
+                hero_class = 'Rouge'
+            main.main(user_name, race, hero_class)
+            is_running = False
         

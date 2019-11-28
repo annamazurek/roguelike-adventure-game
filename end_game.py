@@ -32,7 +32,7 @@ def end_game(end):
     end_story = 1
     if end == "die":
         ui.display_ascii(end_screen["die"][title])
-        ui.display_ascii(end_screen["die"][end_story])
+        ui.display_dialog_window(end_screen["die"][end_story])
     elif end == "win":
         ui.display_ascii(end_screen["win"][title])
-        ui.display_ascii(end_screen["win"][end_story])
+        ui.display_dialog_window(end_screen["win"][end_story])
