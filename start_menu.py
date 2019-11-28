@@ -1,6 +1,7 @@
 import helpers
 import ui
 import race_menu
+import load_highscore
 
 
 def start_menu_structure():
@@ -121,7 +122,8 @@ def move_forward(where):
         race_menu.race_start_menu()
         pass
     elif where == 1:
-        print('GAME STARTS LOL PRESS ENTER')
+        helpers.clear_screen()
+        load_highscore.print_highscore(load_highscore.sort_score(load_highscore.read_file('highscore.txt')))
         input()
         pass
     elif where == 2:

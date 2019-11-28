@@ -3,6 +3,7 @@ import engine
 import ui
 import end_game
 import duel
+import save_highscore
 # from start_menu import *
 
 PLAYER_ICON = '@'
@@ -213,7 +214,7 @@ def dialoge(npc, player):
                     answer = input("Your answer: ")
                     if answer.lower() == "fire":
                         ui.display_dialog_window("\"You're right! I suppose I have to devise more brain-busting riddle.\nHere is the key.\"")
-                        player = add_hero_item(player, 'Accesories', 'Key')
+                        player = add_hero_item(player, 'Accesories', 'Chest key')
                         new_item = True
                         key = key_pressed().lower()
                         break
@@ -250,6 +251,21 @@ def change_position(movement, player, board):
             player['items']['Accesories'].remove('Door key')
             map_ele = '_'
     #########################################
+    elif board[new_y][new_x] == '§':
+        if 'Chest key' not in player['items']['Accesories']:
+            ui.display_dialog_window('You need to hold a Chest key to open this chest!')
+            key_pressed()
+            map_ele = '.'
+        else:
+            player['y'] += movement[0]
+            player['x'] += movement[1]
+            player = add_hero_item(player, "Potions", 'Health potion')
+            new_item = True
+            map_ele = '.'
+    elif board[new_y][new_x] == '🐖':
+        ui.display_dialog_window('OINK OINK!')
+        map_ele = '.'
+        key_pressed()
     else:
         map_ele = board[new_y][new_x]
         player['y'] += movement[0]
@@ -286,13 +302,12 @@ def change_position(movement, player, board):
         new_item = True
         map_ele = '.'
 
-    
-
     return [map_ele, new_board, player, new_item, new_kill, is_final_battle] 
 
     # TOTALY NEW
 
 def play_game(player, board):
+    win_game = False
     ui.display_dialog_window(
         "You are a Hero. Leading a wasteful life, you are running out of money. Fortunately, you have\nheard that in the nearby village of Codecools Gate, residents will generously pay for getting\nrid of the rat plague, so you decided to quickly hit the road to anticipate the competitors.\n\nRiding the village on your musk deer, you hear the screams of a villager.\n\nPress 'C' to continue.")
     while True:
@@ -327,6 +342,7 @@ def play_game(player, board):
                     changing_position = change_position(CONTROL_DICT[key], player, board)
                     player['Map'] = changing_position[2]['Map']
                     map_elements.insert(0, changing_position[0])
+                    win_game = changing_position[5]
                     if changing_position[1] != False:
                         board = changing_position[1]
                         player['x'] = changing_position[2]['x']
@@ -334,7 +350,7 @@ def play_game(player, board):
                         # player['stats'] = changing_position[2]['stats']
                     elif changing_position[3] != False:
                         player = changing_position[2]
-                        ui.display_dialog_window('You gained new item!')
+                        ui.display_dialog_window('You recieve a new item! Open inventory to check what is it')
                         # print(player)
                         key_pressed()
                     elif changing_position[4] != False:
@@ -345,12 +361,16 @@ def play_game(player, board):
                 clear_screen()    
                 if player['stats']['HP'] <= 0:
                     end = end_game.end_game('die')  # the 'end' depends from the life of Necromancer-rat
-
+                    key_pressed()
+                    points = int(player['Kills'])*1000
+                    save_highscore.save_result(player['name'], points, player['race'], player['class'])
                     # clear_screen()
                     break
-                elif changing_position[5] != False:
+                elif win_game != False:
                     end_game.end_game('win')
                     key_pressed()
+                    points = int(player['Kills'])*1000
+                    save_highscore.save_result(player['name'], points, player['race'], player['class'])
                     break
                 ui.display_board(board, hero)
             break
