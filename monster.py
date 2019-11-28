@@ -9,8 +9,17 @@ class Monster:
         self.intelligence = intelligence
 
 
+rat = Monster(
+    "Rat",
+    5,
+    0,
+    3,
+    5,
+    8
+)
+
 giant_rat = Monster(
-    "Giant rat",
+    "Giant Rat",
     5,
     0,
     3,
@@ -18,9 +27,8 @@ giant_rat = Monster(
     10
 )
 
-
-skeleton = Monster(
-    "Skeleton",
+skeleton_rat = Monster(
+    "Skeleton Rat",
     10,
     0,
     8,
@@ -30,7 +38,7 @@ skeleton = Monster(
 
 
 necromancer = Monster(
-    "Necromancer",
+    "Necromancer Rat",
     100,
     100,
     15,

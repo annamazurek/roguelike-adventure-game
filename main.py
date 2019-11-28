@@ -108,43 +108,69 @@ def change_position(movement, player, board):
         duel.duel_menu(player['stats'])
         map_ele = 'x'
         # check if player is dead and move - alive->move dead->finish
-    if board[new_y][new_x] in '?!':
-        ui.display_dialog_window('hello')
-        key_pressed()
+    if board[new_y][new_x] == '!':  #
+        ui.display_dialog_window('hello')  #
+        key = key_pressed().lower()  #
+        while True:  #
+            if key == "1":  #
+                ui.display_dialog_window('hello1')
+            elif key == "2":
+                ui.display_dialog_window('hello2')
+            elif key == "3":
+                break
+            key = key_pressed().lower()
+            if key == "c":
+                break  #
+    if board[new_y][new_x] == '?':  #
+        ui.display_dialog_window('hello')  #
 
     return map_ele
 
 
 def play_game(player, board):
-    while True:
-        key = key_pressed().lower()
-        # board = engine.create_board(BOARD_WIDTH, BOARD_HEIGHT)
-        last_position = [player['y'], player['x']]
-        # hero_statistics = player["stats"]
-        hero = list_stats(player['stats'], player)  # Create a list of hero stats
-        items = hero_items(player)
-        if key == 'q':
-            break
-        elif key == 'i':
-            clear_screen()
+    ui.display_dialog_window(
+        "You are a Hero. Leading a wasteful life, you are running out of money. Fortunately, you have\nheard that in the nearby village of Codecools Gate, residents will generously pay for getting\nrid of the rat plague, so you decided to quickly hit the road to anticipate the competitors.\n\nRiding the village on your musk deer, you hear the screams of a villager.\n\nPress 'C' to continue.")  #
+    while True:  #
+        key = key_pressed().lower()  #
+        if key == "c":  #
+            clear_screen()  #
+            hero = list_stats(player['stats'], player)  #
+            ui.display_board(board, hero)  #
+            ui.display_dialog_window("To interact with NPC('!', '?') and monsters ('*', 'G', 'N', 'S') just go to their place.\nMove your character with keys: 'W', 'A', 'S', 'D'.")  #
             while True:
-                ui.display_items(items)
                 key = key_pressed().lower()
+                # board = engine.create_board(BOARD_WIDTH, BOARD_HEIGHT)
+                last_position = [player['y'], player['x']]
+                # hero_statistics = player["stats"]
+                # hero = list_stats(player['stats'], player)  # Create a list of hero stats
+                items = hero_items(player)
                 if key == 'q':
-                    print('q')
                     break
-                else:
+                elif key == 'i':
                     clear_screen()
-        elif key == 'z':
-            clear_screen()
-        elif key in 'wsad':
-            map_elements.insert(0, change_position(CONTROL_DICT[key], player, board))
-            board = engine.put_player_on_board(board, player, map_elements, last_position)
-        clear_screen()
-        if player['stats']['HP'] <= 0:
+                    while True:
+                        ui.display_items(items)
+                        key = key_pressed().lower()
+                        if key == 'q':
+                            break
+                        else:
+                            clear_screen()
+                elif key == 'z':
+                    clear_screen()
+                elif key in 'wsad':
+                    map_elements.insert(0, change_position(CONTROL_DICT[key], player, board))
+                    board = engine.put_player_on_board(board, player, map_elements, last_position)
+                clear_screen()
+                if player['stats']['HP'] <= 0:
+                    end = end_game.end_game('die')  # the 'end' depends from the life of Necromancer-rat
+                    # clear_screen()
+                    break
+                # else:
+                #     end = 'win'
+                #     break
+                
+                ui.display_board(board, hero)
             break
-        
-        ui.display_board(board, hero)
 
 
 def main(name, race, hero_class):
@@ -155,26 +181,14 @@ def main(name, race, hero_class):
     board = engine.put_player_on_board(board, player, map_elements)
     hero = list_stats(player['stats'], player)
     ui.display_board(board, hero)
-    ui.display_dialog_window("Hello Adventurer!")
 
     play_game(player, board)
-
-
-    if player['stats']['HP'] <= 0:
-        end = 'die'
-    else:
-        end = 'win'  # the 'end' depends from the life of Necromancer-rat
-
-    clear_screen()
-    # end = 'win'  # the 'end' depends from the life of Necromancer-rat
-
-    end_game.end_game(end)  # the parameters: 'win' or 'lose'
+    end_game.end_game(end = None)  #
     restart_game()
 
 def restart_game():
     print('Press to continue')
     key = key_pressed()
-
 
 
 if __name__ == '__main__':

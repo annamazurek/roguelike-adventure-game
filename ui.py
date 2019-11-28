@@ -38,7 +38,7 @@ def display_items(items):
 
 def display_dialog_window(text):
     print('X' + 118*'~' + 'X')
-    # print(f"|{118*' '}|")
+    print(f"|{118*' '}|")
     text = text.split("\n")
     for line in text:
         print(f"|{line.center(118)}|")

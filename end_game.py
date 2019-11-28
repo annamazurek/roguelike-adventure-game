@@ -12,10 +12,7 @@ end_screen = {
      ▒ ▒ ░░  ░ ░ ░ ▒   ░░░ ░ ░     ░ ░  ░  ▒ ░   ░       ░ 
      ░ ░         ░ ░     ░           ░     ░     ░  ░ ░    
      ░ ░                           ░                       
-    ''', '''
-You misunderstood the power of rats. The big Rat-necromancer defeated you, your flesh fed his offspring. 
-The last thing you saw was a young woman standing beside the Necromancer.
-    '''],
+    ''', "You misunderstood the power of rats. The big Rat-necromancer defeated you, your flesh fed his offspring.\nThe last thing you saw was a young woman standing beside the Necromancer."],
     "win": ['''
     ██╗   ██╗ ██████╗ ██╗   ██╗    ██╗    ██╗██╗███╗   ██╗██╗
     ╚██╗ ██╔╝██╔═══██╗██║   ██║    ██║    ██║██║████╗  ██║██║
