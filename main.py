@@ -45,8 +45,9 @@ def create_player(usr_name, race, hero_class):
     player["max_HP"] = 10
     player["max_mana"] = 10
     player["stats"] = {
-        'HP': 10,
+        'HP': 50,
         'Mana': 10,
+        'Level': 1,
         'STR': 10,
         'DEX': 10,
         'CON': 10,
@@ -55,8 +56,6 @@ def create_player(usr_name, race, hero_class):
         'CHA': 10
     }
     player["items"] = hero_items(player)
-    global HERO_STATS
-    HERO_STATS = player["stats"]
     return player
 
 
@@ -68,19 +67,59 @@ def list_stats(statistics, player):
         info.append(f"{key}: {value}")
     return info
 
+# TOTALLY NEW
+def change_level(which_lvl):
+    # NEW LEVEL SCREEN
+
+    # we can add le LEVEL and stats here
+    new_map = 'mapLVL2.txt'
+    new_position = {'x': 4, 'y': 4, 'Level': 2, "stats": {
+        'HP': 100,
+        'Mana': 25,
+        'Level': 2,
+        'STR': 20,
+        'DEX': 20,
+        'CON': 20,
+        'INT': 20,
+        'WIS': 20,
+        'CHA': 20
+    }}
+    # clear whole screen
+    clear_screen()
+
+    # show some screen about changing level
+
+    # board = load new map
+    board = engine.read_map(new_map)
+    # player stays the same
+
+    # lvl up?
+     
+    # back to the main loop
+    return [new_position, board]
+# TOTALLY NEW
 
 def hero_items(player):
-    items = {"Weapon": [], "Armour": [], "Potions": []}
+    #added accesories
+    items = {"Weapon": [], "Armour": [], "Potions": [], "Accesories": []}
     if player['class'] == "Wizzard":
         items["Weapon"] = ["Wand"]
         items["Armour"] = ["Leather helmet"]
+        items["Potions"] = ['Health potion']
     elif player['class'] == "Knight":
         items["Weapon"] = ["Sword"]
         items["Armour"] = ["Helmet", "Shield", "Heavy armour"]
+        items["Potions"] = ['Health potion']
     elif player['class'] == "Rouge":
         items["Weapon"] = ["Daggers"]
         items["Armour"] = ["Leather helmet", "Leather armour"]
+        items["Potions"] = ['Health potion']
     return items
+
+def add_hero_item(player_obj, type_of_item, item_name):
+    player_obj['items'][type_of_item].append(item_name)
+    return player_obj
+
 
 # def stats_to_list(player):
 #     stats_list=[]
@@ -92,6 +131,9 @@ def change_position(movement, player, board):
 
     y_pos = 0
     x_pos = 1
+
+    new_board = False
+    new_item = False
 
     new_y = player['y'] + movement[y_pos]
     new_x = player['x'] + movement[x_pos]
@@ -124,8 +166,38 @@ def change_position(movement, player, board):
     if board[new_y][new_x] == '?':  #
         ui.display_dialog_window('hello')  #
 
-    return map_ele
+    if board[new_y][new_x] == '#':
+        # change lvl #TOTALY NEW
+        change_the_level = change_level(2)
+        player = change_the_level[0]
+        new_board = change_the_level[1]
+        pass
 
+    if board[new_y][new_x] == '!':  #
+        ui.display_dialog_window('hello')  #
+        key = key_pressed().lower()  #
+        while True:  #
+            if key == "1":  #
+                ui.display_dialog_window('hello1')
+            elif key == "2":
+                ui.display_dialog_window('hello2')
+            elif key == "3":
+                break
+            key = key_pressed().lower()
+            if key == "c":
+                break  #
+    if board[new_y][new_x] == '?':  #
+        ui.display_dialog_window('hello')  #
+
+
+    if board[new_y][new_x] == '$':
+        player = add_hero_item(player, 'Accesories', 'Key')
+        new_item = True
+        map_ele = '.'
+    
+
+    return [map_ele, new_board, player, new_item] 
+    # TOTALY NEW
 
 def play_game(player, board):
     ui.display_dialog_window(
@@ -143,7 +215,7 @@ def play_game(player, board):
                 last_position = [player['y'], player['x']]
                 # hero_statistics = player["stats"]
                 # hero = list_stats(player['stats'], player)  # Create a list of hero stats
-                items = hero_items(player)
+                items = player['items']
                 if key == 'q':
                     break
                 elif key == 'i':
@@ -158,17 +230,26 @@ def play_game(player, board):
                 elif key == 'z':
                     clear_screen()
                 elif key in 'wsad':
-                    map_elements.insert(0, change_position(CONTROL_DICT[key], player, board))
+                    # TOTALY NEW
+                    changing_position = change_position(CONTROL_DICT[key], player, board)
+                    map_elements.insert(0, changing_position[0])
+                    if changing_position[1] != False:
+                        board = changing_position[1]
+                        player['x'] = changing_position[2]['x']
+                        player['y'] = changing_position[2]['y']
+                        player['stats'] = changing_position[2]['stats']
+                    elif changing_position[3] != False:
+                        player = changing_position[2]
+                        ui.display_dialog_window('You gained new item!')
+                        print(player)
+                        key_pressed()
                     board = engine.put_player_on_board(board, player, map_elements, last_position)
-                clear_screen()
+                    # TOTALY NEW
+                clear_screen()    
                 if player['stats']['HP'] <= 0:
                     end = end_game.end_game('die')  # the 'end' depends from the life of Necromancer-rat
                     # clear_screen()
                     break
-                # else:
-                #     end = 'win'
-                #     break
-                
                 ui.display_board(board, hero)
             break
 
