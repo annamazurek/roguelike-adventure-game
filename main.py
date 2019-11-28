@@ -45,8 +45,9 @@ def create_player(usr_name, race, hero_class):
     player["max_HP"] = 10
     player["max_mana"] = 10
     player["stats"] = {
-        'HP': 10,
+        'HP': 50,
         'Mana': 10,
+        'Level': 1,
         'STR': 10,
         'DEX': 10,
         'CON': 10,
@@ -68,6 +69,37 @@ def list_stats(statistics, player):
         info.append(f"{key}: {value}")
     return info
 
+# TOTALLY NEW
+def change_level(which_lvl):
+    # NEW LEVEL SCREEN
+
+    # we can add le LEVEL and stats here
+    new_map = 'mapLVL2.txt'
+    new_position = {'x': 4, 'y': 4, 'Level': 2, "stats": {
+        'HP': 100,
+        'Mana': 25,
+        'Level': 2,
+        'STR': 20,
+        'DEX': 20,
+        'CON': 20,
+        'INT': 20,
+        'WIS': 20,
+        'CHA': 20
+    }}
+    # clear whole screen
+    clear_screen()
+
+    # show some screen about changing level
+
+    # board = load new map
+    board = engine.read_map(new_map)
+    # player stays the same
+
+    # lvl up?
+     
+    # back to the main loop
+    return [new_position, board]
+# TOTALLY NEW
 
 def hero_items(player):
     items = {"Weapon": [], "Armour": [], "Potions": []}
@@ -93,6 +125,8 @@ def change_position(movement, player, board):
     y_pos = 0
     x_pos = 1
 
+    new_board = False
+
     new_y = player['y'] + movement[y_pos]
     new_x = player['x'] + movement[x_pos]
 
@@ -111,9 +145,17 @@ def change_position(movement, player, board):
     if board[new_y][new_x] in '?!':
         ui.display_dialog_window('hello')
         key_pressed()
+        
+    if board[new_y][new_x] == '#':
+        # change lvl #TOTALY NEW
+        change_the_level = change_level(2)
+        player = change_the_level[0]
+        new_board = change_the_level[1]
+        pass
+    
 
-    return map_ele
-
+    return [map_ele, new_board, player] 
+    # TOTALY NEW
 
 def play_game(player, board):
     while True:
@@ -138,8 +180,17 @@ def play_game(player, board):
         elif key == 'z':
             clear_screen()
         elif key in 'wsad':
-            map_elements.insert(0, change_position(CONTROL_DICT[key], player, board))
+            # TOTALY NEW
+            changing_position = change_position(CONTROL_DICT[key], player, board)
+            map_elements.insert(0, changing_position[0])
+            if changing_position[1] != False:
+                board = changing_position[1]
+                player['x'] = changing_position[2]['x']
+                player['y'] = changing_position[2]['y']
+                player['stats'] = changing_position[2]['stats']
             board = engine.put_player_on_board(board, player, map_elements, last_position)
+            # TOTALY NEW
+        
         clear_screen()
         if player['stats']['HP'] <= 0:
             break
