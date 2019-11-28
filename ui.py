@@ -20,7 +20,6 @@ def display_board(board, hero):
     # for row in board:
     #     print(''.join(row))  # ???
 
-
 def display_ascii(ascii_art):
     print(ascii_art)
 
@@ -52,3 +51,7 @@ def display_dialog_window(text):
     print('X' + 118*'~' + 'X')
 
 
+def about_authors():
+    helpers.clear_screen()
+    print("--- About Authors ---".center(100))
+    print("\n\tTomasz Makowski (Rlyyah) - Champion of Jaworzno City in Bubble Soccer\n\tAnna Mazurek (Bearded Lady) - Senior Scratch Developer, worked with the best Game Developers in Poland.\n\tStanisław (ES) - \n\n")

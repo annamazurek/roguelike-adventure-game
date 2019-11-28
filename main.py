@@ -232,7 +232,7 @@ def play_game(player, board):
                             clear_screen()
                 elif key == 'z':
                     clear_screen()
-                elif key in 'wsad':
+                elif key.lower() in 'wsad':
                     # TOTALY NEW
                     changing_position = change_position(CONTROL_DICT[key], player, board)
                     map_elements.insert(0, changing_position[0])
@@ -266,6 +266,7 @@ def main(name, race, hero_class):
     ui.display_board(board, hero)
 
     play_game(player, board)
+    ui.about_authors()
     end_game.end_game(end = None)
     restart_game()
 
