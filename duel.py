@@ -189,7 +189,11 @@ def print_player_stats(player_stats):
 def print_fight(player, monster):
     print('PLAYER')
     print_player_stats(player)
+    print()
     print('PRESS c to attack')
+    print('PRESS s to use a spell')
+    print('PRESS p to use a potion')
+    print()
     print_player_stats(monster)
     pass
 
@@ -206,7 +210,7 @@ def print_monster_attack(amount):
         print(f'Monster dealt {amount} damage to you')
 
 
-def handle_fight(key, player):
+def handle_fight(key, player, items):
     attack = 0
     if key == 'c':
         # weapon attack
@@ -218,32 +222,30 @@ def handle_fight(key, player):
         else:
             attack = 0
     if key == 's':
+        attack_modifier = random.randint(0,30)
+        attack = player[INT] + player[WIS] + attack_modifier
         pass
         # spell attack
+    if key == 'p':
+        if 'Health potion' in items["Potions"]:
+            player[HP] += 1000
+            items["Potions"].remove('Health potion')
+        else:
+            print('You do not have Health Potion in your inventory')
+            time.sleep(.8)
+        pass
+        # drink potion if possible
     return attack
 
 def monster_attack(monster):
 
     choose_attack = random.randint(1,3)
 
-    if choose_attack == 1:
-        attack = monster[STR]
-    if choose_attack == 2:
-        attack = monster[INT]
-    if choose_attack == 3:
-        attack = monster[CHA]
-
-    return attack
-
-
-def check_if_dead(hp):
-    output = True
-    if hp <= 0:
         output = False
     return output
 
 
-def duel_menu(player_stats, enemy_kind):
+def duel_menu(player_stats, enemy_kind, player_items):
 
 
     # start duel screen
@@ -284,7 +286,7 @@ def duel_menu(player_stats, enemy_kind):
         key = key_pressed()
         
         # check what kind of dmg and calculate it
-        hit = handle_fight(key, player)
+        hit = handle_fight(key, player, player_items)
         
         # change hp of monster + print amount of dmg dealt and wait 0.5 s
         monster[HP] = update_health(monster[HP], hit)
