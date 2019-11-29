@@ -138,7 +138,7 @@ def begin_start_menu():
     FIRST_ELEMENT = 0
     SECOND_ELEMENT = 1
     num_of_option = 0
-
+    
     while is_running:
         helpers.clear_screen()
         # print menu structure //ui.print_menu?

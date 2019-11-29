@@ -241,6 +241,19 @@ def monster_attack(monster):
 
     choose_attack = random.randint(1,3)
 
+    if choose_attack == 1:
+        attack = monster[STR]
+    if choose_attack == 2:
+        attack = monster[INT]
+    if choose_attack == 3:
+        attack = monster[CHA]
+
+    return attack
+
+
+def check_if_dead(hp):
+    output = True
+    if hp <= 0:
         output = False
     return output
 
