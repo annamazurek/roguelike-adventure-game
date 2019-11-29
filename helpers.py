@@ -29,6 +29,6 @@ def clear_screen():
     import os
 
     if os.name == "nt":
-        os.system('cls')
+        os.system('cls')  # Command to clear screen on Windows
     else:
-        os.system('clear')
+        os.system('clear')  # Command to clear screen on Linux and Mac
