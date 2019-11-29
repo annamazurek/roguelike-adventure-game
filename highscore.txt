@@ -1,1 +1,1 @@
-sadas;0;Human;Wizzard
+Yo;15000;Human;Wizzard

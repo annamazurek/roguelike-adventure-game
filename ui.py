@@ -54,4 +54,4 @@ def display_dialog_window(text):
 def about_authors():
     helpers.clear_screen()
     print("--- About Authors ---".center(100))
-    print("\n\tTomasz Makowski (Rlyyah) - Champion of Jaworzno City in Bubble Soccer\n\tAnna Mazurek (Bearded Lady) - Senior Scratch Developer, worked with the best Game Developers in Poland.\n\tStanisław (ES) - \n\n")
+    print("\n\tStanisław Chynek (ES) - Senior Ascii Developer and Advanced Spitfire Pilot\n\tTomasz Makowski (Rlyyah) - Champion of Jaworzno City in Bubble Soccer\n\tAnna Mazurek (Bearded Lady) - Senior Scratch Developer, worked with the best Game Developers in Poland.\n\n")
