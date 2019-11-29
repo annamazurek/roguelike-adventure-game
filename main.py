@@ -273,7 +273,7 @@ def change_position(movement, player, board):
     
     if board[new_y][new_x] in '*GSW': 
         enemy_kind = board[new_y][new_x]
-        duel_return_obj = duel.duel_menu(player['stats'], enemy_kind)
+        duel_return_obj = duel.duel_menu(player['stats'], enemy_kind, player['items'])
         map_ele = 'x'
         is_not_dead = duel_return_obj[2]
         is_final_battle = duel_return_obj[1]
