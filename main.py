@@ -126,7 +126,7 @@ def check_level(player_obj):
     player_stats = player_obj['stats']
     if kills == 1:
         player_stats = {
-        'HP': 500,
+        'HP': 30,
         'Mana': 20,
         'Level': 2,
         'STR': 500,
@@ -138,7 +138,7 @@ def check_level(player_obj):
     }
         #lvl up
         pass
-    if kills == 5:
+    if kills == 3:
         player_stats = {
         'HP': 50,
         'Mana': 30,
@@ -152,7 +152,7 @@ def check_level(player_obj):
     }     
         #lvl up
         pass
-    if kills == 12:
+    if kills == 5:
         player_stats = {
         'HP': 75,
         'Mana': 50,
@@ -166,7 +166,7 @@ def check_level(player_obj):
     }        
         #lvl up
         pass
-    if kills == 20:
+    if kills == 7:
         player_stats = {
         'HP': 100,
         'Mana': 75,
@@ -180,6 +180,18 @@ def check_level(player_obj):
     }
         #lvl up
         pass
+    if kills == 10:
+        player_stats = {
+        'HP': 300,
+        'Mana': 100,
+        'Level': 6,
+        'STR': 50,
+        'DEX': 50,
+        'CON': 50,
+        'INT': 50,
+        'WIS': 50,
+        'CHA': 50,
+    }    
     return player_stats
 
 
