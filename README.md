@@ -1,14 +1,25 @@
 # Basements & Rats
+In this game we move our character with 'WSAD' keys and can check the inventory with 'I' key.
 
-Unfortunately you can't clone this repo because of some restrictions from Codecool, but below you can see few screenshots.
+This project may look a bit chaotic, because we had less than 4 days to finish it.
+Unfortunately you can't clone this repository because of some restrictions from Codecool, but below you can see few screenshots.
 
+Start-menu screen:
 ![Start menu](https://github.com/annamazurek/roguelike-adventure-game/blob/master/screen1.PNG)
 
+Choose-a-class screen:
 ![Choose-a-class screen](https://github.com/annamazurek/roguelike-adventure-game/blob/master/screen2.PNG)
 
-![First map and statistics](https://github.com/annamazurek/roguelike-adventure-game/blob/master/screen3.PNG)
+Statistics of our Hero and first map:
+![First map and statistics](https://github.com/annamazurek/roguelike-adventure-game/blob/master/screen3.png)
+**Legend:**
+- ! -> NPC
+- @ -> our Hero
+- * -> Rat (our first enemy)
+- # -> stairs to basement
 
-![Screen before a duel](https://github.com/annamazurek/roguelike-adventure-game/blob/master/screen4.PNG)
+Screen before duel with a Giant Rar
+![Screen before a duel](https://github.com/annamazurek/roguelike-adventure-game/blob/master/screen4.png)
 
 
 Below is the task from Codecool to make this kind of game.
