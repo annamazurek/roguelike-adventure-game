@@ -13,10 +13,10 @@ Choose-a-class screen:
 Statistics of our Hero and first map:
 ![First map and statistics](https://github.com/annamazurek/roguelike-adventure-game/blob/master/screen3.png)
 **Legend:**
-- ! -> NPC
-- @ -> our Hero
-- * -> Rat (our first enemy)
-- # -> stairs to basement
+- '!' -> NPC
+- '@' -> our Hero
+- '*' -> Rat (our first enemy)
+- '#' -> stairs to basement
 
 Screen before duel with a Giant Rar
 ![Screen before a duel](https://github.com/annamazurek/roguelike-adventure-game/blob/master/screen4.png)
