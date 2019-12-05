@@ -1,3 +1,15 @@
+# Basements & Rats
+
+Unfortunately you can't clone this repo because of some restrictions from Codecool, but below you can see few screenshots.
+
+![Start menu](https://github.com/annamazurek/roguelike-adventure-game/blob/master/screen1.PNG)
+
+![Choose-a-class screen](https://github.com/annamazurek/roguelike-adventure-game/blob/master/screen2.PNG)
+
+![First map and statistics](https://github.com/annamazurek/roguelike-adventure-game/blob/master/screen3.PNG)
+
+![Screen before a duel](https://github.com/annamazurek/roguelike-adventure-game/blob/master/screen4.PNG)
+
 
 Below is the task from Codecool to make this kind of game.
 
