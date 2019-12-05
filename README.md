@@ -1,3 +1,6 @@
+
+Below is the task from Codecool to make this kind of game.
+
 # Roguelike
 
 ## Story
