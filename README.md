@@ -2,7 +2,6 @@
 In this game we move our character with 'WSAD' keys and can check the inventory with 'I' key.
 
 This project may look a bit chaotic, because we had less than 4 days to finish it.
-Unfortunately you can't clone this repository because of some restrictions from Codecool, but below you can see few screenshots.
 
 Start-menu screen:
 ![Start menu](https://github.com/annamazurek/roguelike-adventure-game/blob/master/screen1.PNG)
